@@ -6,6 +6,7 @@ import { TextureLoader } from 'three'
 const Earth = () => {
   const earthRef = useRef()
   const cloudsRef = useRef()
+  const atmosphereRef = useRef()
 
   const [colorMap, bumpMap, specMap, cloudMap] = useLoader(TextureLoader, [
     '/brunpage/textures/earth_daymap.jpg',
@@ -15,8 +16,9 @@ const Earth = () => {
   ])
 
   useFrame(() => {
-    if (earthRef.current) earthRef.current.rotation.y += 0.001
-    if (cloudsRef.current) cloudsRef.current.rotation.y += 0.0015 
+    if (earthRef.current) earthRef.current.rotation.y += 0.0015
+    if (cloudsRef.current) cloudsRef.current.rotation.y -= 0.002
+    if (atmosphereRef.current) atmosphereRef.current.rotation.y += 0.0003
   })
 
   return (
@@ -38,6 +40,18 @@ const Earth = () => {
           map={cloudMap}
           transparent={true}
           opacity={0.4}
+          depthWrite={false}
+        />
+      </mesh>
+
+      <mesh ref={atmosphereRef}>
+        <sphereGeometry args={[2.05, 64, 64]} />
+        <meshBasicMaterial
+          color="#4db2ff"
+          transparent={true}
+          opacity={0.2}
+          side={THREE.BackSide}
+          blending={THREE.AdditiveBlending}
           depthWrite={false}
         />
       </mesh>

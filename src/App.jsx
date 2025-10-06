@@ -7,12 +7,18 @@ function App() {
   return (
     <div className="w-screen h-screen relative">
       <Canvas camera={{ position: [0, 0, 5] }}>
-        <ambientLight intensity={3.75} />
+        <ambientLight intensity={6.5} />
         <pointLight position={[10, 10, 10]} />
         <directionalLight 
           position={[5, 5, 5]} 
           intensity={4} 
           castShadow 
+        />
+        <pointLight
+          position={[2, 3, 2]}
+          intensity={3}
+          distance={10}
+          decay={6}
         />
         <Stars />
         <Earth />
@@ -39,7 +45,7 @@ function App() {
             type="text" 
             name="q" 
             placeholder="Where do you want to go today?" 
-            className="flex-1 bg-transparent text-white placeholder-gray-400 text-lg outline-none"
+            className="flex-1 bg-transparent text-white placeholder-gray-400 text-sm md:text-md lg:text-lg outline-none"
           />
         </form>
       </div>
